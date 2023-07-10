@@ -1,5 +1,7 @@
 https://practice.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1#
 
+we will sort each job according to decreasing order of profit 
+and we will perform the job on as last day as possible of deadline to maximise profit
 
 class Solution 
 {
