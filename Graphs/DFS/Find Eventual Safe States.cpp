@@ -32,13 +32,13 @@ public:
             }
         }
 
-        vector<int>ans;
+        vector<int>safeNodes;
         for(int i=0;i < n;i++){
             if(!pathVis[i]){
-                ans.push_back(i);
+                safeNodes.push_back(i);
             }
         }
 
-        return ans;
+        return safeNodes;
     }
 };
