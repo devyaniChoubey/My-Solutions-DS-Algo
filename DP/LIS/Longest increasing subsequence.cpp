@@ -15,6 +15,25 @@ int lengthOfLIS(vector<int>& nums) {
     return solve(0, -1, nums);
 }  
 
+//Recursion 2
+
+class Solution {
+public:
+    int solve(int i, int prevIndex, vector<int>& nums){
+        int n = nums.size();
+        if(i >= n) return 0;
+
+        int pick = -1;
+        if((prevIndex == -1) || (nums[i] > nums[prevIndex])) pick = 1 + solve(i+1, i, nums);
+        int notPick = solve(i+1, prevIndex, nums);
+
+        return max(pick, notPick);
+    }
+    int lengthOfLIS(vector<int>& nums) {
+        return solve(0, -1, nums);
+    }
+};
+
 
 //memoisation
 class Solution {
