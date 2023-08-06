@@ -93,67 +93,70 @@ public:
 
 //Approach 2
 
-class Solution {
-public:
-    int lengthOfLIS(vector<int>& nums) {
-        vector<int>dp(nums.size()+1, 1);
-        int maxi = 1;
-        for(int i=0;i < nums.size();i++){
-            for(int j=0;j<i;j++){
-                if(nums[j] < nums[i]){
-                    dp[i] = max(dp[i], 1+dp[j]);
-                    maxi = max(maxi, dp[i]);
-                }
-            }
-        }
-
-        return maxi;
-    }
-};
-
-
-
 //arr 5 | 4 | 11 | 1 | 16 | 8
 //dp  1 | 1 | 2 | 1 | 3 | 2
 
 //dp[i] signifies length of LIS ending at index i
-//hash[i] stores index of previous element of LIS
+//par[i] stores index of previous element of LIS
 
-
-//Print LIS
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
-        vector<int>dp(nums.size()+1, 1), hash(nums.size() + 1);
-        int maxi = 1;
-        int maxIndex = 0;
-        for(int i=0;i < nums.size();i++){
-            hash[i] = i;
-        }
-
-        for(int i=0;i < nums.size();i++){
-            for(int j=0;j<i;j++){
-                if(nums[j] < nums[i]){
-                    dp[i] = max(dp[i], 1+dp[j]);
-                    hash[i] = j;
-                    if(dp[i] > maxi){
-                        maxi = dp[i];
-                        maxIndex = i;
-                    }
+        int n = nums.size();
+       vector<int>dp(n+1, 1);
+        int ans = 1;
+        for(int ind=0;ind < n;ind++){
+            for(int prevInd=0;prevInd < ind;prevInd++){
+                if(nums[ind] > nums[prevInd]){
+                    dp[ind] = max(dp[prevInd] + 1, dp[ind]);
                 }
             }
+            ans = max(ans, dp[ind]);
         }
-        
-        int i = maxIndex;
-        while(hash[i] != i){
-            cout << nums[i] << " ";
-            i = hash[i];
-        }
-        cout << nums[i];
-
-        return maxi;
+        return ans;
     }
 };
+
+
+
+//Print LIS
+https://www.codingninjas.com/studio/problems/printing-longest-increasing-subsequence_8360670?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTab=1
+vector<int> printingLongestIncreasingSubsequence(vector<int> arr, int n) {
+	// Write your code here
+	vector<int>dp(n+1, 1), par(n+1, 0);
+	int maxInd = 0;
+    for(int i=0;i < n;i++) par[i] = i;
+
+	int ans = 1;
+	for(int i=0;i < n;i++){
+		for(int prev=0;prev < i;prev++){
+			if(arr[i] > arr[prev]){
+				if(dp[prev] + 1 > dp[i]){
+                    par[i] = prev;
+					dp[i] = dp[prev] + 1;
+				}
+			}
+	    }
+		if(ans < dp[i]){
+            ans = dp[i];
+			maxInd = i;
+		}
+
+	}
+    
+	vector<int>lis;
+	
+
+	int i=maxInd;
+    while(par[i] != i){
+	   lis.push_back(arr[i]);
+       i = par[i];
+	}
+	lis.push_back(arr[i]);
+
+	reverse(lis.begin(), lis.end());
+	return lis;
+}
 
 
       
