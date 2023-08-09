@@ -18,6 +18,10 @@ public:
             return solve(s, p, n-1, m-1);
         }else{
             if(p[m-1] == '*'){
+                // Two cases if we see a '*'
+                // a) We ignore ‘*’ character and move to previous character in pattern,
+                // i.e., ‘*’ indicates an empty sequence.
+                // b) '*' character matches with ith character in input
                return solve(s, p, n-1, m) || solve(s, p, n, m-1);
             }else return 0;
         }
