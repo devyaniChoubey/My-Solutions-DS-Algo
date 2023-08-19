@@ -64,22 +64,24 @@ public:
 class Solution {
 public:
     int trap(vector<int>& height) {
+        int leftMax = 0, rightMax = 0;
         int n = height.size();
-        int totalWater = 0, leftMax = 0, rightMax = 0;
-        
-        int l = 0, r = n - 1;
+        int l = 0, r = n-1;
+
+        int res = 0;
+
         while(l < r){
             if(height[l] <= height[r]){
-                if(height[l] > leftMax) leftMax = height[l];
-                else totalWater += (leftMax - height[l]);
-                l++;
+               if(height[l] >= leftMax) leftMax = height[l];
+               res += leftMax - height[l];
+               l++;
             }else{
-                if(height[r] > rightMax) rightMax = height[r];
-                else totalWater += (rightMax - height[r]);
-                r--;
+               if(height[r] >= rightMax) rightMax = height[r];
+               res += rightMax - height[r];
+               r--;
             }
         }
 
-        return totalWater;
+        return res;
     }
 };
