@@ -1,5 +1,16 @@
 https://leetcode.com/problems/merge-intervals/description/
 
+Approach 2: Sorting
+Intuition
+
+If we sort the intervals by their start value, then each set of intervals that can be merged will appear as a contiguous "run" in the sorted list.
+
+Algorithm
+
+First, we sort the list as described. Then, we insert the first interval into our merged list and continue considering each interval in turn as follows:
+If the current interval begins after the previous interval ends, then they do not overlap and we can append the current interval to merged. Otherwise, 
+they do overlap, and we merge them by updating the end of the previous interval if it is less than the end of the current interval.
+
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
