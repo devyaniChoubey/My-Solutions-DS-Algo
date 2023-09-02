@@ -1,5 +1,8 @@
 https://leetcode.com/problems/majority-element/description/
 
+
+Boyer-Moore Voting Algorithm
+
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
