@@ -52,3 +52,43 @@ public:
         return res;
     }
 };
+
+
+
+//Solution 2
+
+
+class Solution {
+public:
+    struct comparator {
+        bool operator()(vector<int>&a, vector<int>&b){
+            return !(a[0] + a[1] < b[0] + b[1]);
+        }
+    };
+    
+    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
+        priority_queue <vector<int>, vector<vector<int>>, comparator> pq;
+
+        vector<vector<int>>res;
+
+        int n1 = nums1.size();
+        int n2 = nums2.size();
+
+        for(int i=0;i < n1;i++){
+            pq.push({nums1[i] , nums2[0], 0});
+        }
+
+        while(!pq.empty() && res.size() < k){
+            auto it = pq.top();
+            pq.pop();
+
+            res.push_back({it[0] , it[1]});
+
+            int idx = it[2];
+
+            if(idx+1 < n2)pq.push({it[0] , nums2[idx+1] , idx+1});
+        }
+
+        return res;
+    }
+};
