@@ -75,7 +75,8 @@ public:
 
 
 
-//Binary Search
+//Binary Search Accepted
+
 class Solution {
 public:
     int cntGasStations(vector<int>& stations, double maxDist){
