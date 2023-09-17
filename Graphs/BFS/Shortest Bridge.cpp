@@ -11,74 +11,76 @@ The idea I used in this problem is that. (Note that there is exactly two group o
 
 class Solution {
 public:
-    void dfs(int i, int j, vector<vector<int>>& grid){
+    void dfs(int row, int col, vector<vector<int>>& grid){
         int n = grid.size();
-        int delCol[] = {-1, 0, 1, 0};
-        int delRow[] = {0, 1, 0, -1};
+        grid[row][col] = 2;
 
-        grid[i][j] = 2;
+        int delRow[] = {-1, 0, 1, 0};
+        int delCol[] = {0, 1, 0, -1};
 
-        for(int k=0;k < 4;k++){
-            int nRow = i + delRow[k];
-            int nCol = j + delCol[k];
+        for(int i=0;i < 4;i++){
+            int nRow = row + delRow[i];
+            int nCol = col + delCol[i];
 
             if(nRow >= 0 && nRow < n && nCol >= 0 && nCol < n && grid[nRow][nCol] == 1){
                 dfs(nRow, nCol, grid);
             }
         }
     }
-
-    
     int shortestBridge(vector<vector<int>>& grid) {
         int n = grid.size();
-        int found = false;
+
+        bool found = false;
+
         queue<pair<int,int>>q;
-
-        int delCol[] = {-1, 0, 1, 0};
-        int delRow[] = {0, 1, 0, -1};
-
-        for(int i = 0;i < n;i++){
-            for(int j = 0;j < n;j++){
-                if(!found && grid[i][j] == 1){
+        
+        for(int i=0;i < n;i++){
+            for(int j=0;j < n;j++){
+                if(grid[i][j] == 1 && !found){
                     dfs(i, j, grid);
                     found = true;
                 }
-                if(found && grid[i][j] == 1){
+
+                if(grid[i][j] == 1 && found){
                     q.push({i, j});
                 }
+                
             }
         }
 
-        int level = 0;
+        int noOfFlips = 0;
 
         while(!q.empty()){
             int size = q.size();
 
-            for(int z=0;z < size;z++){
+            for(int k=0;k < size;k++){
                 int row = q.front().first;
                 int col = q.front().second;
                 q.pop();
-            
-                for(int k=0;k < 4;k++){
-                    int nRow = row + delRow[k];
-                    int nCol = col + delCol[k];
 
-                    if(nRow < 0 || nRow >= n || nCol < 0 || nCol >= n) continue;
-                    if(grid[nRow][nCol] == 1) continue;
-                    if(grid[nRow][nCol] == 2) return level;
+                int delRow[] = {-1, 0, 1, 0};
+                int delCol[] = {0, 1, 0, -1};
+
+                for(int i=0;i < 4;i++){
+                    int nRow = row + delRow[i];
+                    int nCol = col + delCol[i];
+
+                    if(nRow < 0 || nRow > n-1 || nCol < 0 || nCol > n-1 || grid[nRow][nCol] == 1) continue;
+                    
                     if(grid[nRow][nCol] == 0){
                         q.push({nRow, nCol});
                         grid[nRow][nCol] = 1;
                     }
-                }
 
+                    if(grid[nRow][nCol] == 2){
+                        return noOfFlips;
+                    }
+                }
             }
 
-            level++;
+            noOfFlips++;
         }
 
         return -1;
-
-
     }
 };

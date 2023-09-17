@@ -14,7 +14,7 @@ int upperBound(vector<int> &arr, int target, int n){
 			upperbound = mid;
 			high = mid- 1;
 		}else{
-            low = mid + 1;
+      low = mid + 1;
 		}
 	}	
 
