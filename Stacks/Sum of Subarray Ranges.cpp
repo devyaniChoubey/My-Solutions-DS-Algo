@@ -106,3 +106,60 @@ public:
         return sumSubarrayMaxs(nums) - sumSubarrayMins(nums);
     }
 };
+
+
+//Optimised
+
+
+class Solution {
+public:
+    long long sumOfSubarrayMins(vector<int>& arr){
+        long long minSum = 0;
+        int n = arr.size();
+        stack<int>st;
+
+        for(int i=0;i <= n;i++){
+            while(!st.empty() && (i == n || arr[st.top()] >= arr[i])){
+                int mid = st.top();
+                st.pop();
+
+                int rightBoundary = i;
+                int leftBoundary = (st.empty()) ? -1 : st.top();
+
+                long long leftSum = (mid - leftBoundary);
+                long long rightSum = (rightBoundary - mid);
+
+                minSum += arr[mid]*leftSum*rightSum; 
+            }
+            if(i < n) st.push(i);
+        }
+
+        return minSum;
+    }
+    long long sumOfSubarrayMaxs(vector<int>& arr){
+        long long maxSum = 0;
+        int n = arr.size();
+        stack<int>st;
+
+        for(int i=0;i <= n;i++){
+            while(!st.empty() && (i == n || arr[st.top()] <= arr[i])){
+                int mid = st.top();
+                st.pop();
+
+                int rightBoundary = i;
+                int leftBoundary = (st.empty()) ? -1 : st.top();
+
+                long long leftSum = (mid - leftBoundary);
+                long long rightSum = (rightBoundary - mid);
+
+                maxSum += arr[mid]*leftSum*rightSum; 
+            }
+            if(i < n) st.push(i);
+        }
+
+        return maxSum;
+    }
+    long long subArrayRanges(vector<int>& nums) {
+        return sumOfSubarrayMaxs(nums) - sumOfSubarrayMins(nums);
+    }
+};
