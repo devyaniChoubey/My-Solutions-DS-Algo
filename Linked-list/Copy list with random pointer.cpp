@@ -1,6 +1,6 @@
 https://leetcode.com/problems/copy-list-with-random-pointer/description/
 
-
+https://www.youtube.com/watch?v=VNf6VynfpdM&t=1024s
 /*
 // Definition for a Node.
 class Node {
@@ -39,8 +39,6 @@ public:
         return mp[head];
     }
 };
-
-
 
 
 optimised
