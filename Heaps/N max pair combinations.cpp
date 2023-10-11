@@ -1,5 +1,7 @@
 https://www.interviewbit.com/problems/n-max-pair-combinations/
 
+https://www.interviewbit.com/problems/maximum-sum-combinations/
+
 vector<int> Solution::solve(vector<int> &A, vector<int> &B) {
     priority_queue<pair<int, pair<int,int>>>pq;
     set<pair<int,int>>st;
