@@ -12,9 +12,9 @@ int upperBound(vector<int> &arr, int target, int n){
 
 		if(arr[mid] > target){
 			upperbound = mid;
-			high = mid- 1;
+			high = mid-1;
 		}else{
-      low = mid + 1;
+      low = mid+1;
 		}
 	}	
 
