@@ -58,3 +58,32 @@ public:
         return true;
     }
 };
+
+
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        unordered_set<string>seen;
+
+        for(int i=0;i < 9;i++){
+            for(int j=0;j < 9;j++){
+                if(board[i][j] == '.') continue;
+                
+                if(seen.count(to_string(board[i][j]) + "found in row" + to_string(i))
+                || seen.count(to_string(board[i][j]) + "found in col" + to_string(j))
+                || seen.count(to_string(board[i][j]) + "found in box" + to_string(3*(i/3) + (j/3)))){
+                    return 0;
+                }else{
+
+                    seen.insert(to_string(board[i][j]) + "found in row" + to_string(i));
+                    seen.insert(to_string(board[i][j]) + "found in col" + to_string(j));
+                    seen.insert(to_string(board[i][j]) + "found in box" + to_string(3*(i/3) + (j/3)));
+                }
+                
+            }
+        }
+
+        return 1;
+    }
+};
+

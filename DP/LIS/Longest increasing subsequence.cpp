@@ -59,7 +59,6 @@ public:
 
 
 //tabulation
-
     int lengthOfLIS(vector<int>& nums) {
       int n = nums.size();
       vector<vector<int>>dp(n+1, vector<int>(n+2, 0)); 
@@ -75,8 +74,6 @@ public:
 
 
 //Space Optimisation
-
-
     int lengthOfLIS(vector<int>& nums) {
       int n = nums.size();
       vector<int>prev(n+1, 0),cur(n+1, 0); 
@@ -103,7 +100,7 @@ class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
-       vector<int>dp(n+1, 1);
+        vector<int>dp(n+1, 1);
         int ans = 1;
         for(int ind=0;ind < n;ind++){
             for(int prevInd=0;prevInd < ind;prevInd++){
@@ -141,11 +138,9 @@ vector<int> printingLongestIncreasingSubsequence(vector<int> arr, int n) {
             ans = dp[i];
 			maxInd = i;
 		}
-
 	}
     
 	vector<int>lis;
-	
 
 	int i=maxInd;
     while(par[i] != i){
@@ -153,6 +148,7 @@ vector<int> printingLongestIncreasingSubsequence(vector<int> arr, int n) {
        i = par[i];
 	}
 	lis.push_back(arr[i]);
+
 
 	reverse(lis.begin(), lis.end());
 	return lis;

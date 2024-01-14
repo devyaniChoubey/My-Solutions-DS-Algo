@@ -1,5 +1,7 @@
 https://leetcode.com/problems/longest-string-chain/description/
 
+//Approach 1
+
 class Solution {
 public:
     bool static comp(string &s1, string &s2){
@@ -40,5 +42,58 @@ public:
         }
 
         return maxi;
+    }
+};
+
+
+//Approach 2
+
+class Solution {
+public:
+    bool isPredecessor(string &a, string &b){
+        int i=0,j=0;
+
+        while(j < b.length()){
+            if(a[i] == b[j]){
+                i++;
+                j++;
+            }else{
+                j++;
+            }
+        }
+
+        if(i == a.length() && j == b.length()){
+            return true;
+        }else return false;
+
+    }
+    int solve(int prevInd, int ind, vector<string>& words,vector<vector<int>>&dp){
+        if(ind >= words.size()) return 0;
+
+        int pick = -1e9;
+
+        if(dp[prevInd+1][ind] != -1) return dp[prevInd+1][ind];
+
+        if(prevInd == -1){
+            pick = 1 + solve(ind, ind+1, words,dp);
+        }else if(words[prevInd].size() + 1 == words[ind].size() && isPredecessor(words[prevInd], words[ind])){
+            pick = 1 + solve(ind, ind+1, words,dp);
+        }
+
+        int notPick = solve(prevInd, ind+1, words,dp);
+
+        return dp[prevInd+1][ind] = max(pick, notPick);
+    }
+    bool static sortByLen(string &a, string &b){
+        return (a.length() < b.length());
+    }
+    int longestStrChain(vector<string>& words) {
+        int n = words.size();
+
+        sort(words.begin() , words.end() , sortByLen);
+
+        vector<vector<int>>dp(n+1, vector<int>(n+1, -1));
+
+        return solve(-1, 0, words,dp);
     }
 };

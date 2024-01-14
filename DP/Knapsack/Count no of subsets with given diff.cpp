@@ -25,7 +25,7 @@ class Solution {
                     int notTake = dp[i-1][j];
                     
                     dp[i][j] = (take + notTake)%mod;
-                }
+                
             }
         }
         
