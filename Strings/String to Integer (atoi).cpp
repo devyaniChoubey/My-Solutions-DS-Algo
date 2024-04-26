@@ -5,7 +5,7 @@ class Solution {
 public:
     int myAtoi(string s) {
         int base = 0;
-        int n = s.length();
+        int n = s.length()
         int i = 0;
 
         int sign = 1;
