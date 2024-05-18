@@ -1,5 +1,15 @@
 https://leetcode.com/problems/cheapest-flights-within-k-stops/description/
 
+// try below test case if you have confusion why this 
+// if(dist[it.first] > dis + it.second)
+
+n = 4
+flights = [[0,1,1],[0,2,5],[1,2,1],[2,3,1]]
+src = 0
+dst = 3
+k = 1
+
+
 class Solution {
 public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {

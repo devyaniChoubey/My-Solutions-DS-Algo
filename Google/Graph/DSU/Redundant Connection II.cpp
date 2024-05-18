@@ -1,6 +1,12 @@
-https://leetcode.com/problems/redundant-connection-ii/submissions/1054167590/
+https://leetcode.com/problems/redundant-connection-ii/solutions/108045/c-java-union-find-with-explanation-o-n/
 
 https://leetcode.com/problems/redundant-connection-ii/description/
+
+
+edges = [[2,1],[3,1],[4,2],[1,4]]
+
+ans = [2,1]
+
 
 class DisjointSet {
     public:

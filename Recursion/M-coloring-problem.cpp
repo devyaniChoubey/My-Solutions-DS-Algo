@@ -4,25 +4,25 @@ class Solution{
 public:
     // Function to determine if graph can be coloured with at most M colours such
     // that no two adjacent vertices of graph are coloured with same colour.
-    bool isValid(int node,int col, vector<int>adj[], vector<int>&color){
-        for(int adjNode:adj[node]){
-            if(color[adjNode] == col) return false;
+    
+    bool isValid(int col, int node, vector<int>&color, bool graph[101][101]){
+        int n = color.size();
+        for(int i=0;i < n;i++){
+            if(graph[node][i] || graph[i][node]){
+                if(color[i] == col) return false;
+            }
         }
         
         return true;
     }
     
-    bool solve(int node, vector<int>adj[], vector<int>&color,int m,int n){
-        if(node >= n){
-            return true;
-        }
+    bool dfs(int node, int m, vector<int>&color,int n, bool graph[101][101]){
+        if(node == n) return true;
         
         for(int col=1;col <= m;col++){
-            if(isValid(node, col, adj, color)){
+            if(isValid(col, node, color, graph)){
                 color[node] = col;
-                
-                if(solve(node+1, adj, color, m,n)) return true;
-                
+                if(dfs(node+1, m, color, n, graph))return true;
                 else color[node] = -1;
             }
         }
@@ -33,26 +33,7 @@ public:
     bool graphColoring(bool graph[101][101], int m, int n) {
         // your code here
         
-        vector<int>adj[n];
-        
-        for(int i=0;i < n;i++){
-            for(int j=0;j < n;j++){
-                if(graph[i][j]) {
-                    adj[i].push_back(j);
-                    adj[j].push_back(i);
-                }
-            }
-        }
-        
         vector<int>color(n, -1);
-        
-        for(int i=0;i < n;i++){
-            if(color[i] == -1) {
-                if(!solve(i, adj, color, m,n)) return false;
-            }
-        }
-        
-        return true;
-        
+        return dfs(0, m, color, n, graph);
     }
 };

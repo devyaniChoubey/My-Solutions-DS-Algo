@@ -53,3 +53,87 @@ public:
         return -1;
     }
 };
+
+
+
+class DisjointSet {
+    public: vector<int>par, size;
+    DisjointSet(int n){
+       par.resize(n);
+       size.resize(n, 1);
+
+       for(int i=0;i < n;i++) par[i] = i;
+    }
+
+    int findUPar(int node){
+        if(node == par[node]) return node;
+        return par[node] = findUPar(par[node]);
+    }
+
+    void unionBySize(int u, int v){
+        int ulp_u = findUPar(u);
+        int ulp_v = findUPar(v);
+        if(ulp_u == ulp_v) return;
+
+        if(size[ulp_v] > size[ulp_u]){
+            par[ulp_u] = ulp_v;
+            size[ulp_v] += size[ulp_u];
+        }else{
+            par[ulp_v] = ulp_u;
+            size[ulp_u] += size[ulp_v];
+        }
+    }
+
+
+};
+
+class DisjointSet {
+    public: vector<int>par, size;
+    DisjointSet(int n){
+       par.resize(n);
+       size.resize(n, 1);
+
+       for(int i=0;i < n;i++) par[i] = i;
+    }
+
+    int findUPar(int node){
+        if(node == par[node]) return node;
+        return par[node] = findUPar(par[node]);
+    }
+
+    void unionBySize(int u, int v){
+        int ulp_u = findUPar(u);
+        int ulp_v = findUPar(v);
+        if(ulp_u == ulp_v) return;
+
+        if(size[ulp_v] > size[ulp_u]){
+            par[ulp_u] = ulp_v;
+            size[ulp_v] += size[ulp_u];
+        }else{
+            par[ulp_v] = ulp_u;
+            size[ulp_u] += size[ulp_v];
+        }
+    }
+
+
+};
+
+class Solution {
+public:
+    int earliestAcq(vector<vector<int>>& logs, int n) {
+        DisjointSet ds(n);
+        sort(logs.begin() , logs.end());
+
+        for(auto log:logs){
+            
+            if(ds.findUPar(log[1]) != ds.findUPar(log[2])) {
+                ds.unionBySize(log[1], log[2]);
+                n--;
+            }
+            if(n == 1) return log[0];
+
+        }
+
+        return -1;
+    }
+};

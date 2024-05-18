@@ -1,4 +1,8 @@
 https://leetcode.com/problems/palindrome-partitioning/submissions/991077825/
+https://leetcode.com/problems/palindrome-partitioning/editorial/
+
+TC O(N*2^N)
+SC O(N)
 
 class Solution {
 public:
