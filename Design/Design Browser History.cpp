@@ -54,3 +54,47 @@ public:
  * string param_2 = obj->back(steps);
  * string param_3 = obj->forward(steps);
  */
+
+
+class BrowserHistory {
+public:
+    stack<string>history;
+    stack<string>future;
+
+    BrowserHistory(string homepage) {
+        history.push(homepage);
+    }
+    
+    void visit(string url) {
+        history.push(url);
+        future = stack<string>();
+    }
+    
+    string back(int steps) {
+        while(history.size() > 1 && steps > 0){
+            future.push(history.top());
+            history.pop();
+            steps--;
+        }
+
+        return history.top();
+    }
+    
+    string forward(int steps) {
+        while(!future.empty() && steps > 0){
+            history.push(future.top());
+            future.pop();
+            steps--;
+        }
+
+        return history.top();
+    }
+};
+
+/**
+ * Your BrowserHistory object will be instantiated and called as such:
+ * BrowserHistory* obj = new BrowserHistory(homepage);
+ * obj->visit(url);
+ * string param_2 = obj->back(steps);
+ * string param_3 = obj->forward(steps);
+ */

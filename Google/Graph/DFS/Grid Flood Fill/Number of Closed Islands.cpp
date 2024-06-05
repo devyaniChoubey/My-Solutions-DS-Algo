@@ -7,44 +7,48 @@ public:
     void dfs(int row, int col, vector<vector<int>>& grid){
         int m = grid.size();
         int n = grid[0].size();
+        int delRow[] = {-1,0,1,0};
+        int delCol[] = {0, 1, 0, -1};
 
         grid[row][col] = 1;
-
-        int delRow[] = {-1, 0, 1, 0};
-        int delCol[] = {0, -1, 0, 1};
 
         for(int i=0;i < 4;i++){
             int nRow = row + delRow[i];
             int nCol = col + delCol[i];
 
-            if(nRow >= 0 && nRow < m && nCol >= 0 && nCol < n && grid[nRow][nCol] == 0){
-                dfs(nRow, nCol, grid);
-            } 
+            if(nRow < 0 || nCol < 0 || nRow >= m || nCol >= n || grid[nRow][nCol] == 1) continue;
+
+            dfs(nRow, nCol, grid);
         }
     }
     int closedIsland(vector<vector<int>>& grid) {
         int m = grid.size();
         int n = grid[0].size();
 
+        
+        for(int j=0;j < n;j++){
+            if(grid[0][j] == 0) dfs(0, j, grid); 
+            if(grid[m-1][j] == 0) dfs(m-1, j, grid); 
+        }
+
+
+        for(int i=0;i < m;i++){
+            if(grid[i][0] == 0) dfs(i, 0, grid); 
+            if(grid[i][n-1] == 0) dfs(i, n-1, grid); 
+        }
+
+        int islandCnt = 0;
+
+
         for(int i=0;i < m;i++){
             for(int j=0;j < n;j++){
-                if((i == 0 || j == 0 || j == n-1 || i == m-1) && grid[i][j] == 0){
+                if(grid[i][j] == 0) {
                     dfs(i, j, grid);
+                    islandCnt++;
                 }
             }
         }
 
-        int cntClosedIsland = 0;
-
-        for(int i=1;i < m-1;i++){
-            for(int j=1;j < n-1;j++){
-                if(grid[i][j] == 0){
-                    dfs(i, j, grid);
-                    cntClosedIsland++;
-                }
-            }
-        }
-
-        return cntClosedIsland;
+        return islandCnt;
     }
 };

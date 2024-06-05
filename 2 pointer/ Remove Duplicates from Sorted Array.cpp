@@ -1,5 +1,51 @@
 https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/
 
+
+class Solution {
+public:
+    string removeDuplicates(string s) {
+        string res;
+
+        for(char& c:s){
+           if(!res.empty() && res.back() == c) res.pop_back();
+           else res.push_back(c);
+        }
+
+        return res;
+
+    }
+};
+
+
+
+
+
+class Solution {
+public:
+    string removeDuplicates(string s) {
+        stack<char>st;
+        
+        for(char &c:s){
+            if(!st.empty() && st.top() == c) st.pop();
+            else st.push(c);
+        }
+
+        string ans;
+
+        while(!st.empty()) {
+            ans = st.top() + ans;
+            st.pop();
+        }
+
+        return ans;
+
+    }
+};
+
+
+
+
+
 //Brute Force
 
 class Solution {

@@ -1,33 +1,76 @@
 
 https://leetcode.com/problems/sort-characters-by-frequency/description/
 
+
 class Solution {
 public:
     string frequencySort(string s) {
-        unordered_map<char, int>count_map;
+        int cnt[128] = {};
 
-        for(char c:s){
-            count_map[c]++;
+        for(char &c:s) cnt[c]++;
+
+        sort(s.begin() , s.end() , [&](char &a, char &b) {
+           return (cnt[a] > cnt[b] || cnt[a] == cnt[b] && a < b);
+        });
+
+        return s;
+    }
+};
+
+
+
+
+
+class Solution {
+public:
+    string frequencySort(string s) {
+        unordered_map<char,int>freq;
+
+        for(char &c:s) freq[c]++;
+
+        vector<pair<int,char>>freqVec;
+
+        for(auto it:freq){
+            freqVec.push_back({it.second, it.first});
         }
 
-        int n = s.length();
+        sort(freqVec.begin() , freqVec.end() , [&](auto &it1, auto &it2){
+            return (it1.first > it2.first);
+        });
 
-        vector<char>bucket[n+1];
+        string ans;
+
+        for(auto& it:freqVec){
+            ans.append(it.first, it.second);
+        }
+
+        return ans;
+    }
+};
 
 
+class Solution {
+public:
+    string frequencySort(string s) {
+        int n = s.size();
+        unordered_map<char,int>freq;
 
-        for(auto it:count_map){
-            bucket[it.second].push_back(it.first);
+        for(char &c:s) freq[c]++;
+
+        vector<vector<char>>bucket(n+1);
+
+        for(auto& [ch, f]: freq){
+            bucket[f].push_back(ch);
         }
 
         string res;
 
-
-        for(int i=n;i >= 0;i--){
-            for(int j=0;j < bucket[i].size();j++) res.append(i, bucket[i][j]);
+        for(int i=n;i >= 1;i--){
+            for(char &c:bucket[i]){
+                res.append(i, c);
+            }
         }
 
         return res;
-        
     }
 };
