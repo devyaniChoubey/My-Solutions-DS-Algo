@@ -3,17 +3,15 @@ https://leetcode.com/problems/ransom-note/?envType=study-plan-v2&envId=top-inter
 class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
-        vector<int>freq(26, 0);
+        int counter[26] = {};
 
-        for(int i=0;i < magazine.size();i++) freq[magazine[i] - 'a']++;
-        
-        for(int i=0;i < ransomNote.size();i++){
-            if(freq[ransomNote[i] - 'a'] > 0) {
-                freq[ransomNote[i] - 'a']--;
-            }else return false;
+        for(char &c:magazine) counter[c-'a']++;
+
+        for(char &c:ransomNote){
+            counter[c-'a']--;
+            if(counter[c-'a'] < 0) return false;
         }
 
         return true;
-
     }
 };

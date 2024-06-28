@@ -12,42 +12,55 @@ https://leetcode.com/problems/sort-list/
  */
 class Solution {
 public:
-    ListNode* mergeList(ListNode* l1, ListNode* l2){
-        ListNode* res = new ListNode(0);
-        ListNode* cur = res;
+    ListNode* findMiddle(ListNode* head){
+        ListNode* slow = head;
+        ListNode* fast = head;
 
-        while(l1 != NULL && l2 != NULL){
-            if(l1->val <= l2->val){
-                cur->next = l1;
-                l1 = l1->next;
-            }else {
-                cur->next = l2;
-                l2 = l2->next;
-            }
-            cur = cur->next;
-        }
-
-        if(l1 != NULL) cur->next = l1;
-        if(l2 != NULL) cur->next = l2;
-
-        return res->next;
-    }
-    ListNode* sortList(ListNode* head) {
-        if(head == NULL || head->next == NULL) return head;
-
-        ListNode* slow = head , *fast = head, *temp = NULL;
-
-        while(fast != NULL && fast->next != NULL){
-            temp = slow;
+        while(fast->next && fast->next->next){
             slow = slow->next;
             fast = fast->next->next;
         }
 
-        temp->next = NULL;
+        return slow;
+    }
 
-        ListNode* l1 = sortList(head);
-        ListNode* l2 = sortList(slow);
+    ListNode* merge(ListNode* l1,ListNode* l2){
+        ListNode* cur = new ListNode(0);
+        ListNode* temp = cur;
+
+        while(l1 != NULL && l2 != NULL){
+            if(l1->val <= l2->val) {
+                temp->next = l1;
+                l1 = l1->next;
+            }else{
+                temp->next = l2;
+                l2 = l2->next;
+            }
+            temp = temp->next;
+        }
+
+        if(l1) temp->next = l1;
+        if(l2) temp->next = l2;
+
+        cur = cur->next;
         
-        return mergeList(l1, l2);
+
+        return cur;
+    }
+
+    ListNode* sortList(ListNode* head) {
+        if(head == NULL || head->next == NULL) return head;
+
+        ListNode* mid = findMiddle(head);
+
+        ListNode* firstHead = head;
+        ListNode* secondHead = mid->next;
+
+        mid->next = NULL;
+
+        firstHead = sortList(firstHead);
+        secondHead = sortList(secondHead);
+
+        return merge(firstHead, secondHead);
     }
 };

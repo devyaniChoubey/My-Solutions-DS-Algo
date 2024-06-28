@@ -2,7 +2,7 @@ https://leetcode.com/problems/the-maze-ii/description/
 
 class Solution {
 public:
-    int shortestDistance(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+    int (vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
         int m = maze.size();
         int n = maze[0].size();
 

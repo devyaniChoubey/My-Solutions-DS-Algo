@@ -29,3 +29,28 @@ public:
         
     }
 };
+
+
+
+
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        priority_queue<pair<int, int>>pq;
+        unordered_map<int,int>freq;
+
+        for(auto it:nums) freq[it]++;
+
+        for(auto it:freq) pq.push({it.second, it.first});
+        vector<int>ans;
+
+        while(!pq.empty()){
+            if(ans.size() == k) return ans;
+            ans.push_back(pq.top().second);
+            pq.pop();
+        }
+
+        return ans;
+    }
+};
