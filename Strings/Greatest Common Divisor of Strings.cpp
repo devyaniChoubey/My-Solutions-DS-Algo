@@ -1,7 +1,5 @@
 https://leetcode.com/problems/greatest-common-divisor-of-strings/?envType=company&envId=google&favoriteSlug=google-thirty-days&difficulty=EASY&status=TO_DO
 
-
-
 class Solution {
 public:
     bool isValid(string str1, string str2, int k){
