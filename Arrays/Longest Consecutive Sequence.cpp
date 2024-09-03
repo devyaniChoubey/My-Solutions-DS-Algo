@@ -6,28 +6,24 @@ https://leetcode.com/problems/longest-consecutive-sequence/description/
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        sort(nums.begin() , nums.end());
-
         int n = nums.size();
-
         if(n == 0) return 0;
 
+        sort(nums.begin() , nums.end());
+
         int maxLen = 1;
+        int len = 1;
 
-       int ans = 1;
-
-        for(int i=1;i < n;i++){
-            if(nums[i] == nums[i-1] + 1){
-                maxLen++;
-                ans = max(ans, maxLen);
-            }else if(nums[i] == nums[i-1]){
-                
-            }else{
-                maxLen = 1;
+        for(int i=1;i < nums.size();i++){
+            if(nums[i] == nums[i-1] + 1) len++;
+            else if(nums[i] != nums[i-1]){
+               maxLen = max(len, maxLen);
+               len = 1;
             }
         }
+        maxLen = max(len, maxLen);
 
-        return ans;
+        return maxLen;
     }
 };
 
