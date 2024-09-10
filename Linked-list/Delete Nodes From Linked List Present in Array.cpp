@@ -29,3 +29,26 @@ public:
         return res->next;
     }
 };
+
+//Method 2 
+
+class Solution {
+public:
+    ListNode* modifiedList(vector<int>& nums, ListNode* head) {
+        unordered_set<int>seen(nums.begin() , nums.end());
+
+        ListNode* temp = new ListNode(0, head);
+        ListNode* ans = temp;
+
+        while(temp->next != NULL){
+            if(seen.count(temp->next->val)){
+                temp->next = temp->next->next;
+            }else{
+                temp = temp->next;
+            }
+        }
+
+        return ans->next;
+
+    }
+};
