@@ -52,3 +52,30 @@ public:
         return -1;
     }
 };
+
+
+//Method 2
+
+class Solution {
+public:
+    int solve(int amount,vector<int>& coins,vector<int>&dp){
+        if(amount == 0) return 0;
+        if(amount < 0) return 1e9;
+
+        if(dp[amount] != -1) return dp[amount];
+
+        int min_coins = 1e9;
+
+        for(auto &coin:coins){
+            if(amount >= coin)min_coins = min(min_coins, 1 + solve(amount-coin, coins,dp));
+        }
+
+        return dp[amount] = min_coins;
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        vector<int>dp(amount+1, -1);
+        int res = solve(amount, coins,dp);
+        if(res == 1e9) return -1;
+        else return res;
+    }
+};
