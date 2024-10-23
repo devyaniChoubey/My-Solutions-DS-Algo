@@ -2,6 +2,11 @@ https://leetcode.com/problems/non-overlapping-intervals/description/
 
 https://leetcode.com/problems/non-overlapping-intervals/editorial/
 
+https://leetcode.com/problems/maximum-length-of-pair-chain/description/
+
+https://www.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1
+
+
 // finding the minimum number of intervals to remove is equivalent to finding the maximum number of non-overlapping intervals. This is the famous interval scheduling problem.
 
 // Let's start by considering the intervals according to their end times. Consider the two intervals with the earliest end times. Let's say the earlier end time is x and the later one is y. We have x < y.
